@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="miaopaipageCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="miaopaipageJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+    <bean name="toutiaoPageTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="jinRiTouTiaoPageJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+    <bean name="iyoukuPageCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="iYouKuPageJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/2 * * * ?"/>
+    </bean>
+    <bean name="qqpageCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="qqpageJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+    <bean name="qqpageCronTriggerBean_" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="qqpageJobFactory_"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+    <bean name="qqpageCronTriggerBean_2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="qqpageJobFactory_2"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+    <bean name="sohupageCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="sohupageJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+    <bean name="_56PageCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="_56pageJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+
+
+    <bean name="jinRiTouTiaopageJob" class="com.ifeng.pgc.quartzJobs.pagejobs.JinRiTouTiaoPageJob">
+        <property name="className" value="com.ifeng.pgc.beans.JinRiTouTiaoVideoPageInfo"/>
+        <property name="serviceName" value="jinRiTouTiaoServiceImpl"/>
+        <property name="sleepTime" value="1000"/>
+        <property name="spiderName" value="toutiaoPageSpider"/>
+        <!--<property name="downloader" ref="downloader"/>-->
+    </bean>
+    <bean name="jinRiTouTiaoPageJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="jinRiTouTiaopageJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <!--秒拍  page -->
+    <bean name="miaopaipageJob" class="com.ifeng.pgc.quartzJobs.pagejobs.MiaoPaiPageJob">
+        <property name="className" value="com.ifeng.pgc.beans.MiaoPaiPageInfo"></property>
+        <property name="serviceName" value="miaoPaiServiceImpl"></property>
+        <property name="sleepTime" value="1000"/>
+        <property name="spiderName" value="miaopaiPageSpider"/>
+    </bean>
+
+    <bean name="miaopaipageJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="miaopaipageJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <!--QQ page -->
+    <bean name="qqpageJob" class="com.ifeng.pgc.quartzJobs.pagejobs.QQPageJob">
+        <property name="className" value="com.ifeng.pgc.beans.QQVideoPageInfo"/>
+        <property name="serviceName" value="qqServiceImpl"/>
+        <property name="sleepTime" value="1000"/>
+        <property name="downloader" ref="downloader"/>
+        <property name="spiderName" value="qqPageSpider"/>
+    </bean>
+    <bean name="qqpageJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="qqpageJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <bean name="qqpageJob_" class="com.ifeng.pgc.quartzJobs.pagejobs.QQPageJob_">
+        <property name="className" value="com.ifeng.pgc.beans.QQVideoPageInfo_2"/>
+        <property name="serviceName" value="qqServiceImpl"/>
+        <property name="sleepTime" value="1000"/>
+        <property name="downloader" ref="downloader"/>
+        <property name="spiderName" value="qqpage_Spider"/>
+    </bean>
+    <bean name="qqpageJob_2" class="com.ifeng.pgc.quartzJobs.pagejobs.QQPageJob_2">
+        <property name="className" value="com.ifeng.pgc.beans.QQVideoPageInfo_3"/>
+        <property name="serviceName" value="qqServiceImpl"/>
+        <property name="sleepTime" value="1000"/>
+        <property name="downloader" ref="downloader"/>
+        <property name="spiderName" value="qqpage_2Spider"/>
+    </bean>
+    <bean name="qqpageJobFactory_" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="qqpageJob_"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean name="qqpageJobFactory_2" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="qqpageJob_2"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean name="iYouKupageJob" class="com.ifeng.pgc.quartzJobs.pagejobs.IYouKuPageJob">
+        <property name="className" value="com.ifeng.pgc.beans.IYouKuVideoPageInfo"/>
+        <property name="serviceName" value="youKuServiceImpl"/>
+        <property name="sleepTime" value="1000"/>
+        <property name="downloader" ref="downloader"/>
+        <property name="spiderName" value="youkuPageSpider"/>
+    </bean>
+    <bean name="iYouKuPageJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="iYouKupageJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean name="_56pageJob" class="com.ifeng.pgc.quartzJobs.pagejobs._56PageJob">
+        <property name="className" value="com.ifeng.pgc.beans._56VideoPageInfo"></property>
+        <property name="serviceName" value="_56serviceImpl"></property>
+        <property name="sleepTime" value="1000"/>
+        <property name="downloader" ref="downloader"/>
+        <property name="spiderName" value="_56PageSpider"/>
+    </bean>
+    <bean name="_56pageJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="_56pageJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean name="sohupageJob" class="com.ifeng.pgc.quartzJobs.pagejobs.SuHuPageJob">
+        <property name="className" value="com.ifeng.pgc.beans.SohuPageInfo"></property>
+        <property name="serviceName" value="sohuServiceImpl"></property>
+        <property name="sleepTime" value="1000"/>
+        <property name="downloader" ref="downloader"/>
+        <property name="spiderName" value="sohuPageSpider"/>
+    </bean>
+    <bean name="sohupageJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="sohupageJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <!--Page Downloader   /data/programs/pgc-spider/phantomjs-2.1.1-linux-x86_64/bin/phantomjs -->
+    <bean name="downloader" lazy-init="false" autowire="no" class="com.ifeng.pgc.core.PhantomJsDownloader">
+        <!--<property name="driverPath" value="/data/programs/pgc-spider/phantomjs-2.1.1-linux-x86_64/bin/phantomjs"/>-->
+        <!--<property name="driverPath" value="C:\\Users\\zhanglr\\Desktop\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe"/>-->
+        <property name="driverName" value="phantomjs.binary.path"/>
+        <property name="poolSize" value="1"/>
+        <property name="pageHeight" value="10000"/>
+        <property name="pageWidth" value="1000"/>
+        <property name="waitDownloadTime" value="5000"/>
+    </bean>
+</beans>

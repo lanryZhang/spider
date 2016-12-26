@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="spring-list-spide-job.xml"/>
+    <import resource="spring-download-job.xml"/>
+    <import resource="spring-page-spide-job.xml"/>
+
+    <bean name="userAgentService" class="com.ifeng.pgc.services.impl.UserAgentServiceImpl"/>
+    <!--Sync Job Trigger -->
+
+    <bean name="syncJobCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="syncJobFactory"/>
+        <property name="startDelay" value="0"></property>
+        <property name="cronExpression" value="0 0/3 * * * ?"/>
+    </bean>
+    <bean name="AnalysisCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="AnalysisFactory"/>
+        <property name="startDelay" value="0"></property>
+        <property name="cronExpression" value="0 0/2 * * * ?"/>
+    </bean>
+
+    <bean name="changeEipJobCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="changeEipJobFactory"/>
+        <property name="startDelay" value="0"></property>
+        <property name="cronExpression" value="0 0 0/12 * * ?"/>
+    </bean>
+
+    <bean name="schecduleFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.class">org.quartz.simpl.SimpleThreadPool</prop>
+                <prop key="org.quartz.threadPool.threadCount">20</prop>
+                <prop key="org.quartz.threadPool.threadsInheritContextClassLoaderOfInitializingThread">true</prop>
+            </props>
+        </property>
+        <property name="triggers">
+            <list>
+                <ref bean="weChatCronTriggerBean"/>
+                <!--下载任务-->
+                <!--<ref bean="toutiaoDowloadCronTriggerBean"/>-->
+                <!--<ref bean="miappaiDowloadCronTriggerBean"/>-->
+                <!--<ref bean="qqDowloadCronTriggerBean"/>-->
+                <!--<ref bean="sohuDowloadCronTriggerBean"/>-->
+                <!--<ref bean="iqiyiDowloadCronTriggerBean"/>-->
+                <!--<ref bean="letvDowloadCronTriggerBean"/>-->
+                <!--<ref bean="youkuDowloadCronTriggerBean"/>-->
+                <!--<ref bean="_56DowloadCronTriggerBean"/>-->
+                <!--&lt;!&ndash;下载任务&ndash;&gt;-->
+
+                <!--&lt;!&ndash;同步任务&ndash;&gt;-->
+                <!--<ref bean="syncJobCronTriggerBean"/>-->
+                <!--&lt;!&ndash;同步任务&ndash;&gt;-->
+
+                <!--&lt;!&ndash;IP代理&ndash;&gt;-->
+                <!--<ref bean="changeEipJobCronTriggerBean"/>-->
+                <!--&lt;!&ndash;IP代理&ndash;&gt;-->
+
+                <!--&lt;!&ndash;监控任务&ndash;&gt;-->
+                <!--<ref bean="AnalysisCronTriggerBean"/>-->
+                <!--监控任务-->
+
+                <!--抓取任务-->
+                <!--<ref bean="toutiaoCronTriggerBean"/>-->
+                <!--<ref bean="iyoukuICronTriggerBean"/>-->
+                <!--<ref bean="iyoukuUCronTriggerBean"/>-->
+                <!--<ref bean="iyoukuOtherCronTriggerBean"/>-->
+                <!--<ref bean="_56CronTriggerBean"/>-->
+                <!--<ref bean="sohuCronTriggerBean"/>-->
+                <!--<ref bean="miaopaiCronTriggerBean"/>-->
+                <!--<ref bean="qqCronTriggerBean"/>-->
+                <!--<ref bean="iqiyiCronTriggerBean"/>-->
+                <!--<ref bean="letvCronTriggerBean"/>-->
+                <!--抓取任务-->
+
+                <!--<ref bean="miaopaipageCronTriggerBean"/>-->
+                <!--<ref bean="qqpageCronTriggerBean"/>-->
+                <!--<ref bean="qqpageCronTriggerBean_"/>-->
+                <!--<ref bean="qqpageCronTriggerBean_2"/>-->
+                <!--<ref bean="sohupageCronTriggerBean"/>-->
+                <!--<ref bean="iyoukuPageCronTriggerBean"/>-->
+                <!--<ref bean="toutiaoPageTriggerBean"/>-->
+                <!--<ref bean="_56PageCronTriggerBean"/>-->
+
+
+            </list>
+        </property>
+    </bean>
+
+    <bean name="changeEipJob" lazy-init="false" autowire="no" class="com.ifeng.pgc.quartzJobs.eipjobs.EIPProcessJob">
+    </bean>
+    <bean name="changeEipJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="changeEipJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!--Sync-->
+    <bean name="syncJob"  lazy-init="false" autowire="no" class="com.ifeng.pgc.quartzJobs.syncjob.SyncPmopJob">
+        <property name="syncUrl" value="http://v.cmpp.ifeng.com/Cmpp/runtime/interface_449.jhtml"/>
+        <!--<property name="syncUrl2" value="http://172.30.157.75:8080/support/spider/addVideo"/>-->
+        <property name="syncUrl2" value="http://10.90.9.165/stream/spider/video"/>
+    </bean>
+    <bean name="syncJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="syncJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean name="AnalysisJob"  lazy-init="false" autowire="no" class="com.ifeng.pgc.core.monitor.spider.SpiderMonitor">
+    </bean>
+    <bean name="AnalysisFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="AnalysisJob"/>
+        <property name="targetMethod" value="analysis"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+</beans>

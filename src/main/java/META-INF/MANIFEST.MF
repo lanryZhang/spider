@@ -1,0 +1,44 @@
+Manifest-Version: 1.0
+Class-Path: spring-aspects-4.1.6.RELEASE.jar c3p0-0.9.1.1.jar jackson-
+ core-2.7.1.jar mybatis-3.2.8.jar msv-20020414.jar protostuff-collecti
+ onschema-1.0.10.jar jetty-repacked-7.6.1.jar spring-data-commons-1.12
+ .2.RELEASE.jar htmlunit-core-js-2.17.jar mx4j-tools-3.0.1.jar hamcres
+ t-core-1.3.jar netty-all-4.1.4.Final.jar xml-path-2.9.0.jar htmlunit-
+ 2.21.jar commons-codec-1.9.jar jcip-annotations-1.0.jar spring-jdbc-4
+ .1.6.RELEASE.jar htmlunit-driver-2.21.jar mongo-java-driver-3.2.1.jar
+  mybatis-spring-1.2.2.jar cglib-nodep-2.1_3.jar xercesImpl-2.11.0.jar
+  bcpkix-jdk15on-1.48.jar quartz-2.2.2.jar netty-3.5.7.Final.jar slf4j
+ -api-1.7.7.jar spring-beans-4.1.6.RELEASE.jar mysql-connector-java-5.
+ 1.19.jar selenium-leg-rc-2.53.1.jar jsoup-1.7.2.jar spring-context-4.
+ 1.6.RELEASE.jar websocket-api-9.2.15.v20160210.jar jetty-util-9.2.15.
+ v20160210.jar groovy-json-2.4.4.jar dom4j-1.4.jar jna-platform-4.1.0.
+ jar selenium-firefox-driver-2.53.1.jar hamcrest-library-1.3.jar sprin
+ g-context-support-4.1.6.RELEASE.jar selenium-safari-driver-2.53.1.jar
+  selenium-server-2.39.0.jar aws-java-sdk-core-1.10.58.jar webmagic-co
+ re.jar relaxngDatatype-20020414.jar commons-exec-1.1.jar serializer-2
+ .7.2.jar commons-lang3-3.1.jar junit-4.11.jar log4j-1.2.17.jar aopall
+ iance-1.0.jar xsoup-0.2.4.jar spring-data-mongodb-1.9.2.RELEASE.jar s
+ elenium-java-2.53.1.jar selenium-remote-driver-2.39.0.jar httpmime-4.
+ 5.1.jar saxpath-1.0-FCS.jar spring-core-4.1.6.RELEASE.jar selenium-ed
+ ge-driver-2.53.1.jar guava-15.0.jar spring-aop-4.1.6.RELEASE.jar sac-
+ 1.3.jar phantomjsdriver-1.1.0.jar guava-15.0.jar platform-3.4.0.jar c
+ ommons-pool-1.5.4.jar spring-expression-4.1.6.RELEASE.jar json-200807
+ 01.jar groovy-2.4.4.jar fastjson-1.1.41.jar commons-io-2.4.jar joda-t
+ ime-2.8.1.jar selenium-api-2.39.0.jar json-path-2.9.0.jar webmagic-ex
+ tension.jar bcprov-jdk15on-1.48.jar selenium-ie-driver-2.53.1.jar jac
+ kson-databind-2.7.1.jar httpclient-4.5.1.jar websocket-common-9.2.15.
+ v20160210.jar protostuff-api-1.0.10.jar rest-assured-2.9.0.jar common
+ s-lang3-3.3.2.jar signv4-util-0.0.2-SNAPSHOT.jar xalan-2.7.2.jar comm
+ ons-logging-1.2.jar jaxen-1.0-FCS.jar protostuff-runtime-1.0.10.jar j
+ etty-io-9.2.15.v20160210.jar selenium-support-2.53.1.jar jna-3.4.0.ja
+ r json-smart-1.1.1.jar neko-htmlunit-2.21.jar spring-web-4.1.6.RELEAS
+ E.jar isorelax-20020414.jar jackson-annotations-2.7.1.jar tagsoup-1.2
+ .1.jar json-path-0.8.1.jar protostuff-core-1.0.10.jar httpcore-4.4.3.
+ jar groovy-xml-2.4.4.jar servlet-api-2.5-6.1.9.jar snakeyaml-1.8.jar 
+ xml-apis-1.4.01.jar commons-lang-2.6.jar spring-tx-4.1.6.RELEASE.jar 
+ cssparser-0.9.18.jar commons-io-1.3.2.jar selenium-chrome-driver-2.53
+ .1.jar jcl-over-slf4j-1.7.21.jar rest-assured-common-2.9.0.jar common
+ s-dbcp-1.4.jar aspectjweaver-1.8.5.jar commons-collections-3.2.2.jar 
+ websocket-client-9.2.15.v20160210.jar
+Main-Class: com.ifeng.pgc.Server
+

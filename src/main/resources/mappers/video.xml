@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ifeng.pgc.beans.mappers">
+    <resultMap id="entityMap" type="com.ifeng.pgc.beans.VideoEntityInfo">
+        <result property="id" column="id"/>
+        <result property="category" column="category"/>
+        <result property="title" column="title"/>
+        <result property="url" column="url"/>
+        <result property="createTime" column="createTime"/>
+        <result property="keywords" column="keywords"/>
+        <result property="author" column="author"/>
+        <result property="comments" column="comments"/>
+        <result property="playstat" column="playstat"/>
+        <result property="favstat" column="favstat"/>
+        <result property="upstat" column="upstat"/>
+        <result property="downstat" column="downstat"/>
+        <result property="status" column="status"/>
+        <result property="fileLocation" column="fileLocation"/>
+        <result property="updateStatus" column="updateStatus"/>
+        <result property="imgLocation" column="imgLocation"/>
+    </resultMap>
+    <resultMap id="listUrlMap" type="com.ifeng.pgc.beans.UrlEntity">
+        <result property="id" column="id"/>
+        <result property="url" column="url"/>
+        <result property="site" column="site"/>
+        <result property="spideDate" column="spideDate"/>
+        <result property="spideStatus" column="spideStatus"/>
+        <result property="lastSpideStatus" column="lastSpideStatus"/>
+    </resultMap>
+    <select id="get_youku_video_list" resultMap="entityMap">
+        SELECT * FROM YOUKU WHERE STATUS  = 0
+        LIMIT 1,100
+    </select>
+
+    <select id="get_miaopai_video_list" resultMap="entityMap">
+        SELECT * FROM MIAOPAI WHERE STATUS = 0
+        LIMIT 1,100
+    </select>
+    <select id="get_toutiao_video_list" resultMap="entityMap">
+        SELECT * FROM JINRITOUTIAO WHERE STATUS = 0
+        LIMIT 1,100
+    </select>
+    <select id="get_qq_video_list" resultMap="entityMap">
+        SELECT * FROM QQ WHERE STATUS = 0
+        LIMIT 1,100
+    </select>
+    <select id="get_sohu_video_list" resultMap="entityMap">
+        SELECT * FROM SOHU WHERE STATUS = 0
+        LIMIT 1,100
+    </select>
+    <select id="get_56_video_list" resultMap="entityMap">
+        SELECT * FROM _56VIDEO WHERE STATUS = 0
+        LIMIT 1,100
+    </select>
+
+    <select id="select_all_list_urls" resultMap="listUrlMap" parameterType="java.util.Map">
+        SELECT * from LIST_URLS
+        WHERE spideDate &lt; #{date} and site=#{site}
+        order by spideDate asc , priority desc
+        LIMIT 1,100
+    </select>
+
+    <update id="update_list_url_by_id" parameterType="java.util.Map">
+        UPDATE LIST_URLS
+        set spideDate=#{date},lastSpideStatus=#{lastSpideStatus} where id=#{id}
+    </update>
+</mapper>
+

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ifeng.pgc.beans.mappers">
+
+    <resultMap id="selectResultMap" type="com.ifeng.pgc.beans.VideoEntityInfo">
+        <id property="id" column="id"/>
+        <result property="category" column="category"/>
+        <result property="title" column="title"/>
+        <result property="url" column="url"/>
+        <result property="createTime" column="createTime"/>
+        <result property="keywords" column="keywords"/>
+        <result property="author" column="author"/>
+        <result property="comments" column="comments"/>
+        <result property="playstat" column="playstat"/>
+        <result property="favstat" column="favstat"/>
+        <result property="upstat" column="upstat"/>
+        <result property="downstat" column="downstat"/>
+        <result property="fileLocation" column="fileLocation"/>
+        <result property="imgLocation" column="imgLocation"/>
+        <result property="status" column="status"/>
+        <result property="updateStatus" column="updateStatus"/>
+    </resultMap>
+    <select id="select_one_miaopai" resultMap="selectResultMap">
+       select id,
+          category,
+          title,
+          url,
+          createTime,
+          keywords,
+          author,
+          comments,
+          playstat,
+          favstat,
+          upstat,
+          downstat,
+          fileLocation,
+          status
+      from  MIAOPAI where  playstat is NULL  limit 1
+    </select>
+
+    <select id="select_list_miaopai" resultMap="selectResultMap">
+       select id,
+          category,
+          title,
+          url,
+          createTime,
+          keywords,
+          author,
+          comments,
+          playstat,
+          favstat,
+          upstat,
+          downstat,
+          fileLocation,
+          status
+      from  MIAOPAI where   updateStatus &lt;&gt;  3  and   playstat is NULL  limit 100
+    </select>
+
+    <update id="update_one_miaopai" parameterType="com.ifeng.pgc.beans.VideoEntityInfo">
+	     update MIAOPAI set  keywords = #{keywords},author=#{author}
+	       ,title = #{title}
+	       ,comments=#{comments}
+	       ,playstat=#{playstat}
+	       ,favstat=#{favstat}
+	       ,upstat=#{upstat}
+	       ,downstat=#{downstat}
+	       ,updateStatus=#{updateStatus}
+	     where url = #{url}
+	</update>
+    <insert id="insert_one_miaopai_video" parameterType="com.ifeng.pgc.beans.JinRiTouTiaoVideoInfo">
+        INSERT INTO MIAOPAI (title,url,category,listPageId) VALUES
+        (#{title},#{url},#{category},#{listPageId})
+    </insert>
+    <update id="update_one_miaopai_by_id" parameterType="com.ifeng.pgc.beans.VideoEntityInfo">
+        update MIAOPAI set  fileLocation=#{fileLocation},
+        status=#{status},imgLocation=#{imgLocation}
+        where id = #{id}
+    </update>
+
+    <update id="update_one_miaopai_by_url" parameterType="com.ifeng.pgc.beans.VideoEntityInfo">
+        update MIAOPAI set  updateStatus=#{updateStatus}
+        where url = #{url}
+    </update>
+
+    <select id="select_unsync_miaopai_list" resultMap="selectResultMap">
+        select * from MIAOPAI
+        where status=1 and updateStatus=1
+        limit 100
+    </select>
+    <select id="select_one_miaopai_by_url" parameterType="String" resultMap="selectResultMap">
+        SELECT  * from MIAOPAI
+        where url=#{url} limit 1
+    </select>
+</mapper>
+

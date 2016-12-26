@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ifeng.pgc.beans.mappers">
+
+    <insert id="save_batch_jinritoutiao" parameterType="java.util.List">
+        INSERT INTO JINRITOUTIAO (title,url,category,listPageId) VALUES
+        <foreach collection="list" separator="," item="item">
+            (#{item.title},#{item.url},#{item.category},#{listPageId})
+        </foreach>
+    </insert>
+
+    <insert id="save_batch_youku" parameterType="java.util.List">
+        INSERT INTO YOUKU (title,url,category,listPageId) VALUES
+        <foreach collection="list" separator="," item="item">
+            (#{item.title},#{item.url},#{item.category},#{listPageId})
+        </foreach>
+    </insert>
+
+    <insert id="save_batch_56" parameterType="java.util.List">
+        INSERT INTO _56VIDEO (title,url,category,listPageId) VALUES
+        <foreach collection="list" separator="," item="item">
+            (#{item.title},#{item.url},#{item.category},#{listPageId})
+        </foreach>
+    </insert>
+    <insert id="save_batch_sohu" parameterType="java.util.List">
+        INSERT INTO SOHU (title,url,category,listPageId) VALUES
+        <foreach collection="list" separator="," item="item">
+            (#{item.title},#{item.url},#{item.category},#{listPageId})
+        </foreach>
+    </insert>
+    <insert id="save_batch_miaopai" parameterType="java.util.List">
+        INSERT INTO MIAOPAI (title,url,category,listPageId) VALUES
+        <foreach collection="list" separator="," item="item">
+            (#{item.title},#{item.url},#{item.category},#{listPageId})
+        </foreach>
+    </insert>
+    <insert id="save_batch_qq" parameterType="java.util.List">
+        INSERT INTO QQ (title,url,category,listPageId) VALUES
+        <foreach collection="list" separator="," item="item">
+            (#{item.title},#{item.url},#{item.category},#{listPageId})
+        </foreach>
+    </insert>
+
+
+
+
+</mapper>
+

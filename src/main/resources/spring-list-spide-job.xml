@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean name="toutiaoCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="jinRiTouTiaoFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/20 * * * ?"/>
+    </bean>
+    <bean name="iqiyiCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="iQiyiFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/20 * * * ?"/>
+    </bean>
+
+    <bean name="letvCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="letvFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/20 * * * ?"/>
+    </bean>
+
+    <bean name="iyoukuICronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="iYouKuIJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/20 * * * ?"/>
+    </bean>
+
+    <bean name="iyoukuUCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="iYouKuUJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/20 * * * ?"/>
+        <!--<property name="cronExpression" value="0 0/1 * * * ?"/>-->
+    </bean>
+
+    <bean name="iyoukuOtherCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="iYouKuOtherJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/20 * * * ?"/>
+    </bean>
+
+    <bean name="_56CronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="_56JobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/20 * * * ?"/>
+    </bean>
+
+    <bean name="sohuCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="sohuJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/20 * * * ?"/>
+    </bean>
+
+
+    <!-- miaopai-->
+    <bean name="miaopaiCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="miaopaiJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/20 * * * ?"/>
+    </bean>
+
+
+    <bean name="qqCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="qqJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/2 * * * ?"/>
+    </bean>
+
+    <bean name="weChatCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="weChatJobFactory"/>
+        <property name="startDelay" value="1000"></property>
+        <property name="cronExpression" value="0 0/2 * * * ?"/>
+    </bean>
+
+    <bean name="listUrlBuilder" class="com.ifeng.pgc.services.impl.VideoServiceImpl"></bean>
+    <bean name="listUrlBuilderTest" class="com.ifeng.pgc.services.impl.VideoServiceImplTest"></bean>
+    <!--今日头条-->
+    <!--<bean name="phantomjsDownloader" class="com.ifeng.pgc.core.PhantomJsDownloader"/>-->
+
+    <bean name="ToutiaoIPageDealer" class="com.ifeng.pgc.services.impl.JinRiTouTiaoServiceImpl"/>
+
+    <bean name="jinRiTouTiaoJob" class="com.ifeng.pgc.quartzJobs.NormalPageSpiderJsonJob">
+        <!--<property name="startUrls" ref="jinritoutiaoList"/>-->
+        <property name="iPageDealer" ref="ToutiaoIPageDealer"/>
+        <property name="listUrlBuilder" ref="listUrlBuilder"/>
+        <property name="className" value="com.ifeng.pgc.beans.JinRiTouTiaoVideoInfo"></property>
+        <property name="serviceName" value="jinRiTouTiaoServiceImpl"></property>
+        <property name="sleepTime" value="5000"/>
+        <property name="retrySleepTime" value="0"/>
+        <property name="spiderName" value="toutiaoSpider"/>
+        <property name="siteName" value="今日头条"/>
+        <!--<property name="downloader" ref="phantomjsDownloader"/>-->
+    </bean>
+
+    <bean name="jinRiTouTiaoFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="jinRiTouTiaoJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <!--今日头条-->
+
+    <!--爱奇艺-->
+    <bean name="iQiyiPageProcessor" class="com.ifeng.pgc.services.impl.IQiyiServiceImpl"/>
+
+    <bean name="iQiyiJob" class="com.ifeng.pgc.quartzJobs.NormalPageSpiderJsonJob">
+        <!--<property name="startUrls" ref="jinritoutiaoList"/>-->
+        <property name="listUrlBuilder" ref="listUrlBuilder"/>
+        <property name="iPageProcessor" ref="iQiyiPageProcessor"/>
+        <property name="className" value="com.ifeng.pgc.beans.IQiyiVideoInfo"></property>
+        <property name="serviceName" value="iQiyiServiceImpl"></property>
+        <property name="pageStartIndex" value="1"></property>
+        <property name="pageEndIndex" value="100"></property>
+        <property name="sleepTime" value="5000"/>
+        <property name="retrySleepTime" value="0"/>
+        <property name="spiderName" value="iQiyiSpider"/>
+        <property name="siteName" value="爱奇艺"/>
+    </bean>
+
+    <bean name="iQiyiFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="iQiyiJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!--爱奇艺-->
+
+
+    <!--乐视-->
+    <bean name="iPageProcessor" class="com.ifeng.pgc.services.impl.LetvServiceImpl"/>
+
+    <bean name="letvJob" class="com.ifeng.pgc.quartzJobs.NormalPageSpiderJsonJob">
+        <!--<property name="startUrls" ref="jinritoutiaoList"/>-->
+        <property name="listUrlBuilder" ref="listUrlBuilder"/>
+        <property name="iPageProcessor" ref="iPageProcessor"/>
+        <property name="className" value="com.ifeng.pgc.beans.LetvVideoInfo"></property>
+        <property name="serviceName" value="LetvServiceImpl"></property>
+        <property name="pageStartIndex" value="1"></property>
+        <property name="pageEndIndex" value="100"></property>
+        <property name="sleepTime" value="5000"/>
+        <property name="retrySleepTime" value="0"/>
+        <property name="spiderName" value="letvSpider"/>
+        <property name="siteName" value="乐视"/>
+    </bean>
+    <bean name="letvFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="letvJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <!--乐视-->
+
+    <!--秒拍-->
+    <bean name="miaopaiJob" class="com.ifeng.pgc.quartzJobs.listjobs.MiaoPaiSpiderJsonJob">
+        <!--<property name="startUrls" ref="miaopai_list"></property>-->
+        <property name="listUrlBuilder" ref="listUrlBuilder"/>
+        <property name="className" value="com.ifeng.pgc.beans.MiaoPaiVideoInfo"></property>
+        <property name="serviceName" value="miaoPaiServiceImpl"></property>
+        <property name="sleepTime" value="5000"/>
+        <property name="retrySleepTime" value="0"/>
+        <property name="pageStartIndex" value="1"></property>
+        <property name="pageEndIndex" value="100"></property>
+        <property name="spiderName" value="miaopaiSpider"/>
+        <property name="siteName" value="秒拍"/>
+    </bean>
+    <bean name="miaopaiJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="miaopaiJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!--优酷 i.youku.com/i-->
+    <bean name="iYouKuIJob" class="com.ifeng.pgc.quartzJobs.listjobs.IYouKuISpiderHtmlJob">
+        <!--<property name="startUrls" ref="iyoui_iList"/>-->
+        <property name="listUrlBuilder" ref="listUrlBuilder"/>
+        <property name="sleepTime" value="5000"/>
+        <property name="retrySleepTime" value="0"/>
+        <property name="spiderName" value="youkuISpider"/>
+        <property name="siteName" value="优酷_I"/>
+        <!--<property name="downloader" ref="downloader"/>-->
+    </bean>
+    <bean name="iYouKuIJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="iYouKuIJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!--优酷 i.youku.com/u-->
+    <bean name="iYouKuUJob" class="com.ifeng.pgc.quartzJobs.listjobs.IYouKuUSpiderHtmlJob">
+        <!--<property name="startUrls" ref="iyoui_uList"></property>-->
+        <property name="listUrlBuilder" ref="listUrlBuilder"/>
+        <property name="pageStartIndex" value="1"></property>
+        <property name="pageEndIndex" value="100"></property>
+        <property name="sleepTime" value="5000"/>
+        <property name="retrySleepTime" value="0"/>
+        <property name="spiderName" value="youkuUSpider"/>
+        <property name="siteName" value="优酷_U"/>
+    </bean>
+    <bean name="iYouKuUJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="iYouKuUJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!--优酷 i.youku.com/u-->
+    <bean name="iYouKuOtherJob" class="com.ifeng.pgc.quartzJobs.listjobs.IYouKuOtherSpiderHtmlJob">
+        <!--<property name="startUrls" ref="iyou_other_List"/>-->
+        <property name="listUrlBuilder" ref="listUrlBuilder"/>
+        <property name="sleepTime" value="5000"/>
+        <property name="retrySleepTime" value="0"/>
+        <property name="spiderName" value="youkuOtherSpider"/>
+        <property name="siteName" value="优酷_OTHER"/>
+    </bean>
+    <bean name="iYouKuOtherJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="iYouKuOtherJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!--56 http://i.56.com/u-->
+    <bean name="_56Job" class="com.ifeng.pgc.quartzJobs.NormalPageSpiderJsonJob">
+        <!--<property name="startUrls" ref="_56_iList"></property>-->
+        <property name="listUrlBuilder" ref="listUrlBuilder"/>
+        <property name="className" value="com.ifeng.pgc.beans._56VideoInfo"></property>
+        <property name="serviceName" value="_56serviceImpl"></property>
+        <property name="pageStartIndex" value="1"></property>
+        <property name="pageEndIndex" value="100"/>
+        <property name="sleepTime" value="5000"/>
+        <property name="retrySleepTime" value="0"/>
+        <property name="spiderName" value="_56Spider"/>
+        <property name="siteName" value="56视频"/>
+    </bean>
+    <bean name="_56JobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="_56Job"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!--Sohu http://my.tv.sohu.com/user/-->
+    <bean name="sohuJob" class="com.ifeng.pgc.quartzJobs.NormalPageSpiderJsonJob">
+        <!--<property name="startUrls" ref="sohu_list"></property>-->
+        <property name="listUrlBuilder" ref="listUrlBuilder"/>
+        <property name="className" value="com.ifeng.pgc.beans.SohuVideoInfo"></property>
+        <property name="serviceName" value="sohuServiceImpl"></property>
+        <property name="pageStartIndex" value="1"></property>
+        <property name="pageEndIndex" value="100"/>
+        <property name="sleepTime" value="5000"/>
+        <property name="retrySleepTime" value="0"/>
+        <property name="spiderName" value="sohuSpider"/>
+        <property name="siteName" value="搜狐"/>
+    </bean>
+    <bean name="sohuJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="sohuJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!--qq http://my.tv.sohu.com/user/-->
+    <bean name="qqJob" class="com.ifeng.pgc.quartzJobs.NormalSpiderHtmlJob">
+        <!--<property name="startUrls" ref="qq_list"></property>-->
+        <property name="listUrlBuilder" ref="listUrlBuilder"/>
+        <property name="className" value="com.ifeng.pgc.beans.QQVideoInfo"></property>
+        <property name="serviceName" value="qqServiceImpl"></property>
+        <property name="pageStartIndex" value="1"></property>
+        <property name="pageEndIndex" value="100"/>
+        <property name="sleepTime" value="5000"/>
+        <property name="retrySleepTime" value="0"/>
+        <property name="spiderName" value="qqSpider"/>
+        <property name="siteName" value="腾讯视频"/>
+    </bean>
+    <bean name="qqJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="qqJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!--微信 -->
+    <bean name="weChatJob" class="com.ifeng.pgc.quartzJobs.NormalSpiderHtmlJob">
+        <property name="listUrlBuilder" ref="listUrlBuilderTest"/>
+        <property name="className" value="com.ifeng.pgc.beans.ArticlInfo"></property>
+        <property name="serviceName" value="weChatServiceImpl"></property>
+        <property name="sleepTime" value="5000"/>
+        <property name="retrySleepTime" value="0"/>
+        <property name="spiderName" value="weChatSpider"/>
+        <property name="siteName" value="微信"/>
+    </bean>
+    <bean name="weChatJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="weChatJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+</beans>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<mappers>
+		<mapper resource="mappers/insertBatch.xml"/>
+		<mapper resource="mappers/miaopai.xml"/>
+		<mapper resource="mappers/video.xml"/>
+		<mapper resource="mappers/toutiao.xml"/>
+		<mapper resource="mappers/qq.xml"/>
+		<mapper resource="mappers/sohu.xml"/>
+		<mapper resource="mappers/youku.xml"/>
+		<mapper resource="mappers/_56.xml"/>
+	</mappers>
+</configuration>

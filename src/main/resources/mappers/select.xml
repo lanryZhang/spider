@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ifeng.pgc.beans.mappers">
+
+    <resultMap id="detailResultMap" type="com.myapp.domain.Blog">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="author_id" property="authorId" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+
+    </resultMap>
+    <select id="getBlogs" resultMap="detailResultMap" parameterType="com.myapp.domain.Author">
+        select b.title,b.id,b.author_id,c.id as postId,c.subject from Blog b
+        left join Post c on (b.id=c.blog_id and b.author_id=c.author_id)
+        where  b.author_id=#{id}
+</select>
+
+
+</mapper>
+

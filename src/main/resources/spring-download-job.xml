@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean name="miaopaiDownloadJob" class="com.ifeng.pgc.quartzJobs.downloadjobs.MiaoPaiDownloadJob">
+        <property name="siteName" value="秒拍"/>
+        <property name="spiderName" value="miaopaiDownloadJob"/>
+    </bean>
+    <bean name="miaopaiDownloadJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="miaopaiDownloadJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean name="toutiaoDownloadJob" class="com.ifeng.pgc.quartzJobs.downloadjobs.JinRiTouTiaoDownloadJob">
+        <property name="siteName" value="今日头条"/>
+        <property name="spiderName" value="toutiaoDownloadJob"/>
+    </bean>
+    <bean name="toutiaoDownloadJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="toutiaoDownloadJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <bean name="qqDownloadJob" class="com.ifeng.pgc.quartzJobs.downloadjobs.QQDownloadJob">
+        <property name="siteName" value="腾讯视频"/>
+        <property name="spiderName" value="qqDownloadJob"/>
+    </bean>
+    <bean name="qqDownloadJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="qqDownloadJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <bean name="sohuDownloadJob" class="com.ifeng.pgc.quartzJobs.downloadjobs.SohuDownloadJob">
+        <property name="siteName" value="搜狐"/>
+        <property name="spiderName" value="sohuDownloadJob"/>
+    </bean>
+    <bean name="sohuDownloadJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="sohuDownloadJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean name="iqiyiDownloadJob" class="com.ifeng.pgc.quartzJobs.downloadjobs.IQiyiDownloadJob">
+        <property name="siteName" value="爱奇艺"/>
+        <property name="spiderName" value="iqiyiDownloadJob"/>
+    </bean>
+    <bean name="iqiyiDownloadJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="iqiyiDownloadJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean name="letvDownloadJob" class="com.ifeng.pgc.quartzJobs.downloadjobs.LetvDownloadJob">
+        <property name="siteName" value="乐视"/>
+        <property name="spiderName" value="letvDownloadJob"/>
+    </bean>
+    <bean name="letvDownloadJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="letvDownloadJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <bean name="youkuDownloadJob" class="com.ifeng.pgc.quartzJobs.downloadjobs.YouKuDownloadJob">
+        <property name="siteName" value="优酷"/>
+        <property name="spiderName" value="youkuDownloadJob"/>
+    </bean>
+    <bean name="youkuDownloadJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="youkuDownloadJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <bean name="_56DownloadJob" class="com.ifeng.pgc.quartzJobs.downloadjobs._56DownloadJob">
+        <property name="siteName" value="56视频"/>
+        <property name="spiderName" value="_56DownloadJob"/>
+    </bean>
+    <bean name="_56DownloadJobFactory" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="_56DownloadJob"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean name="youkuDowloadCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="youkuDownloadJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+    <bean name="_56DowloadCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="_56DownloadJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+    <bean name="miappaiDowloadCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="miaopaiDownloadJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+    <bean name="toutiaoDowloadCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="toutiaoDownloadJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+    <bean name="qqDowloadCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="qqDownloadJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+    <bean name="sohuDowloadCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="sohuDownloadJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+    <bean name="iqiyiDowloadCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="iqiyiDownloadJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+    <bean name="letvDowloadCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="letvDownloadJobFactory"/>
+        <property name="startDelay" value="6000"></property>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+</beans>
